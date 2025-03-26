@@ -12,6 +12,8 @@ Route::delete('/animals/{id}', [AnimalController::class, 'destroy'])->name('anim
 Route::get('/animals/{id}/edit', [AnimalController::class, 'edit'])->name('animals.edit');
 Route::put('/animals/{animal}', [AnimalController::class, 'update'])->name('animals.update');
 
+Route::get('/animals/{id}/view', [AnimalController::class, 'show'])->name('animals.show');
+
 
 Route::get('/admin/animals', [AnimalController::class, 'adminAnimals'])->middleware('auth')->name('admin.animals');
 Route::middleware(['auth', 'admin'])->group(function () {

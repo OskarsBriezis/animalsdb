@@ -76,6 +76,11 @@ public function edit($id)
     return view('animals.edit', compact('animal'));
 }
 
+public function show($id)
+{
+    $animal = Animal::findOrFail($id);
+    return view('animals.view_info', compact('animal'));
+}
 
 
 
@@ -85,10 +90,10 @@ public function update(Request $request, Animal $animal)
 
     // Validate input
     $validated = $request->validate([
-        'name' => ['required', 'string', 'max:20', 'regex:/^[A-Za-z\s]+$/'], // No numbers
-        'species' => ['required', 'string', 'max:50'],
-        'age' => ['required', 'integer', 'min:0'],
-        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        'name' => ['required', 'string', 'max:20', 'regex:/^[A-Za-z\s]+$/'],  // No numbers, max 20 characters
+        'species' => ['required', 'string', 'max:50'],  // Max 50 characters for species
+        'age' => ['required', 'integer', 'min:0'],  // Age must be an integer and at least 0
+        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],  // Optional image (max 2MB)
     ]);
 
     Log::info('Validated data: ', $validated); // Log validated data
