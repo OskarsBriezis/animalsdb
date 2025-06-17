@@ -5,29 +5,25 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto py-6 bg-[#C19A6B] p-6 rounded-md shadow-lg">
+    <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 bg-[#C19A6B] p-6 rounded-md shadow-lg">
         <div class="bg-[#F5F1E0] p-6 rounded-md shadow-md">
             <h3 class="text-2xl font-bold text-brown mb-4">Animal Details</h3>
-            
-            <!-- Name -->
+
             <div class="mb-4">
                 <span class="font-semibold text-brown">Name:</span>
                 <p class="text-gray-700">{{ $animal->name }}</p>
             </div>
 
-            <!-- Species -->
             <div class="mb-4">
                 <span class="font-semibold text-brown">Species:</span>
                 <p class="text-gray-700">{{ $animal->species }}</p>
             </div>
 
-            <!-- Age -->
             <div class="mb-4">
                 <span class="font-semibold text-brown">Age:</span>
                 <p class="text-gray-700">{{ $animal->age }} years</p>
             </div>
 
-            <!-- Image -->
             <div class="mb-4">
                 <span class="font-semibold text-brown">Image:</span>
                 <div class="mt-2">
@@ -39,13 +35,13 @@
                 </div>
             </div>
 
-            <div class="mt-6 flex justify-end space-x-4">
-                <a href="{{ route('animals.edit', $animal->id) }}" class="bg-[#A67C4E] text-white px-4 py-2 rounded-md hover:bg-[#C19A6B]">Edit</a>
+            <div class="mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                <a href="{{ route('animals.edit', $animal->id) }}" class="bg-[#A67C4E] text-white px-4 py-2 rounded-md hover:bg-[#C19A6B] text-center">Edit</a>
 
                 <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this animal?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full sm:w-auto">Delete</button>
                 </form>
             </div>
         </div>
