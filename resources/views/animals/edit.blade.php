@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight animate-fade-in-down">
             Edit Animal: {{ $animal->name }}
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 bg-[#C19A6B] p-6 rounded-md shadow-lg">
+    <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 bg-[#C19A6B] p-6 rounded-md shadow-lg animate-fade-in-down">
         <form action="{{ route('animals.update', $animal->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')

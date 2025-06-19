@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight animate-fade-in-down">
             Admin Panel: Manage Animals
         </h2>
     </x-slot>

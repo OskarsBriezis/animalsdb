@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight animate-fade-in-up">
             Create a New Animal
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-[#C19A6B] animate-fade-in-up">
         <div class="bg-[#C19A6B] p-6 sm:p-8 rounded-md shadow-lg">
             <form action="{{ route('animals.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -71,11 +71,11 @@
                 </div>
 
                 <button
-                    type="submit"
-                    class="w-full sm:w-auto bg-[#A67C4E] text-white px-6 py-2 rounded-md hover:bg-[#C19A6B] transition duration-200"
-                >
-                    Create Animal
-                </button>
+    class="bg-[#C19A6B] text-white px-4 py-2 rounded-md hover:bg-[#A67C4E] relative overflow-hidden group">
+    <span class="relative z-10">Create Animal</span>
+    <span class="absolute inset-0 bg-white opacity-10 group-hover:animate-shine"></span>
+</button>
+
             </form>
         </div>
     </div>

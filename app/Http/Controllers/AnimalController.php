@@ -21,7 +21,7 @@ class AnimalController extends Controller
 {
     $request->validate([
         'name' => ['required', 'string', 'max:20', 'regex:/^[a-zA-Z\s]+$/'], // No numbers allowed
-        'species' => 'required|string|max:50',
+        'species' => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z\s]+$/'], // No numbers allowed, max 50 characters
         'age' => 'required|integer|min:0|max:100',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
@@ -42,9 +42,30 @@ class AnimalController extends Controller
     return redirect()->route('animals.index')->with('success', 'Animal created successfully!');
 }
 
-public function index()
+public function index(Request $request)
 {
-    $animals = Animal::where('user_id', auth()->id())->get(); // Only show logged-in user's animals
+    $query = Animal::query();
+
+    // Filtered search
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+        $filter = $request->input('filter', 'name');
+
+        if (in_array($filter, ['name', 'species', 'age'])) {
+            $query->where($filter, 'like', "%{$search}%");
+        }
+    }
+
+    // Sorting logic
+    $sort = $request->input('sort');
+    if (in_array($sort, ['asc', 'desc'])) {
+        $query->orderBy('name', $sort); // Sorts by name
+    } else {
+        $query->latest(); // Default sort
+    }
+
+    $animals = $query->paginate(10)->withQueryString();
+
     return view('animals.index', compact('animals'));
 }
 
@@ -91,7 +112,7 @@ public function update(Request $request, Animal $animal)
     // Validate input
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:20', 'regex:/^[A-Za-z\s]+$/'],  // No numbers, max 20 characters
-        'species' => ['required', 'string', 'max:50'],  // Max 50 characters for species
+        'species' => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z\s]+$/'], // No numbers allowed, max 50 characters
         'age' => ['required', 'integer', 'min:0'],  // Age must be an integer and at least 0
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],  // Optional image (max 2MB)
     ]);

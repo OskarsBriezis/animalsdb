@@ -1,12 +1,53 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <div class="text-5xl text-center animate-float mt-4">🐾</div>
+        <h2 class="font-semibold text-xl text-white leading-tight animate-fade-in-down">
             My Animals
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-[#C19A6B] p-6 rounded-md shadow-lg">
         <h3 class="text-2xl font-bold text-white mb-6">My Animals</h3>
+
+        <form action="{{ route('animals.index') }}" method="GET" class="flex flex-col sm:flex-row sm:items-center gap-2 mb-6">
+    <div class="flex gap-2 w-full sm:w-auto animate-slide-in-left">
+        <!-- Filter Dropdown -->
+        <select name="filter" class="px-3 py-2 rounded-md bg-[#F5F1E0] text-brown border border-gray-300">
+            <option value="name" {{ request('filter') === 'name' ? 'selected' : '' }}>Name</option>
+            <option value="species" {{ request('filter') === 'species' ? 'selected' : '' }}>Species</option>
+            <option value="age" {{ request('filter') === 'age' ? 'selected' : '' }}>Age</option>
+        </select>
+
+        <!-- Search Input -->
+        <input type="text" name="search" value="{{ request('search') }}"
+            placeholder="Enter search..." 
+            class="w-full sm:w-64 px-4 py-2 rounded-md bg-[#F5F1E0] text-brown border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#A67C4E]">
+
+        <!-- Sort Dropdown (auto-submits) -->
+        <select name="sort" onchange="this.form.submit()"
+            class="px-3 py-2 rounded-md bg-[#F5F1E0] text-brown border border-gray-300">
+            <option value="">Sort</option>
+            <option value="asc" {{ request('sort') === 'asc' ? 'selected' : '' }}>A - Z</option>
+            <option value="desc" {{ request('sort') === 'desc' ? 'selected' : '' }}>Z - A</option>
+        </select>
+    </div>
+
+    <!-- Manual Search Button -->
+    <div class="flex gap-2 animate-slide-in-right">
+        <button type="submit"
+            class="bg-[#A67C4E] text-white px-4 py-2 rounded-md hover:bg-[#8C6239] transition transform hover:scale-105 hover:shadow-lg duration-200">
+        Search
+        </button>
+
+        @if(request('search') || request('sort'))
+        <a href="{{ route('animals.index') }}" 
+            class="text-sm text-white bg-red-400 px-3 py-2 rounded hover:bg-red-500 transition">
+            Clear
+        </a>
+        @endif
+    </div>
+</form>
+
 
         <!-- Desktop Table View -->
         <div class="hidden md:block overflow-x-auto">

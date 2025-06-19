@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight animate-fade-in-down">
             Animal Info: {{ $animal->name }}
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 bg-[#C19A6B] p-6 rounded-md shadow-lg">
+    <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 bg-[#C19A6B] p-6 rounded-md shadow-lg animate-fade-in-down">
         <div class="bg-[#F5F1E0] p-6 rounded-md shadow-md">
             <h3 class="text-2xl font-bold text-brown mb-4">Animal Details</h3>
 
@@ -36,12 +36,12 @@
             </div>
 
             <div class="mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
-                <a href="{{ route('animals.edit', $animal->id) }}" class="bg-[#A67C4E] text-white px-4 py-2 rounded-md hover:bg-[#C19A6B] text-center">Edit</a>
+                <a href="{{ route('animals.edit', $animal->id) }}" class="bg-[#A67C4E] text-white px-4 py-2 rounded-md hover:bg-[#C19A6B] text-center">✏️</a>
 
                 <form action="{{ route('animals.destroy', $animal->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this animal?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full sm:w-auto">Delete</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full sm:w-auto">🗑️</button>
                 </form>
             </div>
         </div>
